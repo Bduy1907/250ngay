@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Anniversary ❤️</title>
+    <style>
+        body {
+            background-color: #fff0f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(255, 182, 193, 0.5);
+            max-width: 450px;
+            width: 90%;
+            z-index: 10;
+            transition: all 0.5s ease;
+        }
+        h1 { color: #ff4d6d; font-size: 26px; margin-bottom: 20px; }
+        p { color: #4a4a4a; line-height: 1.6; font-size: 16px; }
+        
+        /* Ô nhập số ngày */
+        .input-days {
+            width: 60%;
+            padding: 12px 20px;
+            font-size: 18px;
+            border: 2px solid #ffb3c1;
+            border-radius: 25px;
+            text-align: center;
+            outline: none;
+            margin-bottom: 15px;
+            transition: border-color 0.3s;
+        }
+        .input-days:focus {
+            border-color: #ff4d6d;
+        }
+        
+        .btn {
+            padding: 12px 28px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin: 10px;
+        }
+        .btn:hover { transform: scale(1.05); }
+        .btn-next { background-color: #ff4d6d; color: white; }
+        .btn-yes { background-color: #2ec4b6; color: white; }
+        .btn-no { background-color: #e63946; color: white; }
+        
+        /* Khi nút Không Hề bị vô hiệu hóa */
+        .btn-disabled {
+            background-color: #cccccc !important;
+            color: #666666 !important;
+            cursor: not-allowed !important;
+            transform: none !important;
+            opacity: 0.6;
+        }
+        
+        .heart {
+            position: absolute;
+            color: #ffb3c1;
+            font-size: 20px;
+            animation: fall linear infinite;
+            z-index: 1;
+        }
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+        
+        .hidden { display: none; }
+        
+        .couple-img {
+            width: 100%;
+            max-height: 250px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-top: 15px;
+        }
+        .btn-container {
+            height: 60px; 
+            margin-top: 20px;
+        }
+        .error-text {
+            color: #e63946;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HIỆU ỨNG TRÁI TIM RƠI -->
+    <script>
+        for (let i = 0; i < 30; i++) {
+            let heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            heart.style.opacity = Math.random();
+            document.body.appendChild(heart);
+        }
+    </script>
+
+    <!-- BƯỚC KHỞI ĐẦU: TRÒ CHƠI NHẬP SỐ NGÀY -->
+    <div id="step0" class="container">
+        <h1>Mật Mã Tình Yêu 🔐</h1>
+        <p>Đố công chúa biết tính đến hôm nay, tụi mình đã chính thức yêu nhau được bao nhiêu ngày rồi nè? 🥰</p>
+        <input type="number" id="daysInput" class="input-days" placeholder="Nhập số ngày vào đây...">
+        <div id="errorMsg" class="error-text hidden">Chưa chính xác rồi, em thử nhớ lại xem! 🥺</div>
+        <br>
+        <button class="btn btn-next" onclick="checkDays()">Mở khóa 🔑</button>
+    </div>
+
+    <!-- BƯỚC TRUNG GIAN: KHEN NGỢI KHI NHẬP ĐÚNG -->
+    <div id="stepCorrect" class="container hidden">
+        <h1>Yeahhh!!! 🎉</h1>
+        <p style="font-size: 18px; font-weight: bold; color: #ff4d6d;">Công chúa của anh giỏi quá !! 🥰</p>
+        <p>Vậy là mình đã yêu nhau được 250 ngày rùiiii. Cùng xem tiếp bất ngờ anh dành cho em nhé! 👇</p>
+        <button class="btn btn-next" onclick="nextStep(1)">Tiếp theo ➡️</button>
+    </div>
+
+    <!-- BƯỚC 1: LỜI CHÀO KỶ NIỆM -->
+    <div id="step1" class="container hidden">
+        <h1>Happy 250 Days Anniversary! 🎉</h1>
+        <p>Thấm thoắt chúng mình đã bên nhau được 250 ngày rồi đấy. Cảm ơn em vì đã luôn là một phần tuyệt vời trong cuộc sống của anh nhé! ❤️</p>
+        <button class="btn btn-next" onclick="nextStep(2)">Bấm vào đây đi ➡️</button>
+    </div>
+
+    <!-- BƯỚC 2: CÂU HỎI TƯƠNG TÁC -->
+    <div id="step2" class="container hidden">
+        <h1>Hỏi tội một chút... 😤</h1>
+        <p>Trong 250 ngày qua, em có đồng ý là anh siêu cấp yêu em và thương em nhất trên đời không?</p>
+        <div class="btn-container">
+            <button class="btn btn-yes" onclick="nextStep(4)">Đúng vậy 🥰</button>
+            <button id="noBtn" class="btn btn-no" onmouseover="moveNoButton()">Không hề! 😜</button>
+        </div>
+    </div>
+
+    <!-- BƯỚC 3: CHO CHỌN LẠI -->
+    <div id="step3" class="container hidden">
+        <h1>Ơ kìa... Chọn lại đi chứ! 🥺</h1>
+        <p>Sao lại bảo không hề hả? Cho cơ hội chọn lại đàng hoàng nè!</p>
+        <div class="btn-container">
+            <button class="btn btn-yes" onclick="clickDongYStep3()">Đồng ý 🥰</button>
+            <button id="conLauBtn" class="btn btn-no" onmouseover="moveConLauButton()">Còn lâu nhá 😝</button>
+        </div>
+    </div>
+
+    <!-- BƯỚC 4: THƯ TAY VÀ PHẦN THƯỞNG -->
+    <div id="step4" class="container hidden">
+        <h1>Yêu Em Nhất Đời! 👑</h1>
+        <p>Vậy là mình đã yêu nhau được 250 ngày rồi. Cùng nhau vượt qua bao nhiêu khó khăn, bao nhiêu lần e buồn tủi , nhiều lần cãi nhau dường như có thể dừng lại bất cứ lúc nào.Thế mà giờ mình cũng đã yêu nhau được 250 ngày rùi nè.Tuyệt vời quá đúng hummm. Cảm ơn công chúa vì đã bên anh 250 ngày qua, vượt qua đc những lần cãi vã giận dỗi nhau để đc đến bây giờ và cùng cố gắng để sau này có nhau nữa nhé. Anh yêu em và sẽ mãi yêu em! </p>
+        <img class="couple-img" src="https://i.postimg.cc/KcVjbH5F/Anh.jpg" alt="Công chúa của anh">
+    </div>
+
+    <script>
+        let noClickCount = 0;
+        let conLauClickCount = 0;
+        let isLocked = false; 
+
+        // Hàm kiểm tra số ngày người yêu nhập
+        function checkDays() {
+            const inputVal = document.getElementById('daysInput').value;
+            const errorMsg = document.getElementById('errorMsg');
+            
+            if (parseInt(inputVal) === 250) {
+                errorMsg.classList.add('hidden'); 
+                nextStep('Correct'); // Chuyển sang bước khen ngợi trung gian trước
+            } else {
+                errorMsg.classList.remove('hidden'); 
+                document.getElementById('daysInput').value = ""; 
+            }
+        }
+
+        function nextStep(stepNumber) {
+            document.getElementById('step0').classList.add('hidden');
+            document.getElementById('stepCorrect').classList.add('hidden');
+            document.getElementById('step1').classList.add('hidden');
+            document.getElementById('step2').classList.add('hidden');
+            document.getElementById('step3').classList.add('hidden');
+            document.getElementById('step4').classList.add('hidden');
+            
+            document.getElementById('step' + stepNumber).classList.remove('hidden');
+        }
+
+        function clickDongYStep3() {
+            isLocked = true; 
+            const noBtn = document.getElementById('noBtn');
+            noBtn.style.position = 'static'; 
+            noBtn.classList.add('btn-disabled'); 
+            noBtn.disabled = true; 
+            noBtn.onclick = null; 
+            
+            nextStep(2); 
+        }
+
+        function moveNoButton() {
+            if (isLocked) return; 
+
+            const noBtn = document.getElementById('noBtn');
+            if (noClickCount < 5) {
+                noBtn.style.position = 'fixed'; 
+                const x = Math.random() * (window.innerWidth - 140);
+                const y = Math.random() * (window.innerHeight - 60);
+                noBtn.style.left = x + 'px';
+                noBtn.style.top = y + 'px';
+                noClickCount++;
+            } else {
+                noBtn.style.position = 'static';
+                noBtn.onclick = function() {
+                    nextStep(3); 
+                };
+            }
+        }
+
+        function moveConLauButton() {
+            const conLauBtn = document.getElementById('conLauBtn');
+            if (conLauClickCount < 5) {
+                conLauBtn.style.position = 'fixed'; 
+                const x = Math.random() * (window.innerWidth - 140);
+                const y = Math.random() * (window.innerHeight - 60);
+                conLauBtn.style.left = x + 'px';
+                conLauBtn.style.top = y + 'px';
+                conLauClickCount++;
+            } else {
+                conLauBtn.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
